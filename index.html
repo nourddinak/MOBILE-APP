@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nashop // Join the Waitlist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-color: #000000;
+            --primary-glow-color: #00F2FF;
+            --secondary-glow-color: #8A2BE2;
+            --text-color: #EAEAEA;
+            --text-color-darker: #777777;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Base & Scrollbar --- */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--background-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-glow-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00c4cc;
+        }
+
+        /* --- Animated Background --- */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, rgba(0, 242, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 10s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        /* --- Layout & Structure --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .section {
+            width: 100%;
+            padding: 6rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .section:first-child {
+            border-top: none;
+        }
+
+        /* --- Typography & Text Animations --- */
+        h1, h2, h3, p {
+            margin: 0;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--text-color) 0%, var(--text-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slide-up 1s ease-out forwards;
+        }
+        
+        .hero-title .highlight {
+             background: linear-gradient(90deg, var(--primary-glow-color), var(--secondary-glow-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--text-color-darker);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+            opacity: 0;
+            animation: slide-up 1s 0.2s ease-out forwards;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* --- Forms, Buttons & Success Message --- */
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: slide-up 1s 0.4s ease-out forwards;
+        }
+
+        .waitlist-input, .waitlist-button {
+            opacity: 1;
+            transition: opacity 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease, height 0.5s ease, padding 0.5s ease, margin 0.5s ease;
+        }
+
+        .waitlist-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            height: 55px; /* Explicit height for smooth transition */
+            color: var(--text-color);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .waitlist-input:focus {
+            outline: none;
+            border-color: var(--primary-glow-color);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+        }
+
+        .waitlist-button {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            height: 55px; /* Explicit height for smooth transition */
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--background-color);
+            background-color: var(--primary-glow-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+
+        .waitlist-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(0, 242, 255, 0.7);
+        }
+        
+        /* Classes to hide form elements on success */
+        .form-submitted .waitlist-input,
+        .form-submitted .waitlist-button {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+
+        .success-message {
+            width: 100%;
+            text-align: center;
+            background-color: rgba(0, 242, 255, 0.1);
+            border: 1px solid var(--primary-glow-color);
+            border-radius: 8px;
+            overflow: hidden;
+            opacity: 0;
+            max-height: 0; /* Animate height from 0 to auto */
+            transition: opacity 0.5s 0.5s ease, max-height 0.5s 0.5s ease, padding 0.5s 0.5s ease;
+        }
+
+        .success-message.visible {
+            opacity: 1;
+            padding: 1.5rem;
+            max-height: 100px;
+        }
+        
+        /* --- Features Section --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0));
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-align: left;
+            transition: transform 0.4s ease, background 0.4s ease;
+            opacity: 0; /* Initially hidden for scroll animation */
+            transform: translateY(30px);
+        }
+        
+        .feature-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            transform: scale(1.03);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow-color);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-color-darker);
+            line-height: 1.6;
+        }
+        
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-color-darker);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* --- Keyframe Animations --- */
+        @keyframes slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* -- Responsive Design -- */
+        @media(max-width: 600px) {
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="background-animation"></div>
+
+    <div class="container">
+        <main>
+            <h1 class="hero-title">
+                The New Era of <br> <span class="highlight">Mobile Commerce</span>
+            </h1>
+            <p class="hero-subtitle">
+                Nashop is coming. Shop, earn, and manage your $DAN tokens on the go with our powerful mobile application. Be the first to know when we launch.
+            </p>
+            
+            <form id="waitlist-form" class="waitlist-form" novalidate>
+                <input type="email" class="waitlist-input" placeholder="Enter your email address" required>
+                <button type="submit" class="waitlist-button">Join the Waitlist</button>
+                <div id="success-message" class="success-message">
+                    <h3>Success! You're on the list.</h3>
+                    <p>We'll notify you when Nashop is ready.</p>
+                </div>
+            </form>
+
+        </main>
+
+        <section class="section">
+            <h2 class="section-title">Why Join Early?</h2>
+            <div class="features-grid">
+                <div class="feature-card animated-item">
+                    <div class="feature-icon">✦</div>
+                    <h3>Exclusive Early Access</h3>
+                    <p>Be among the very first to use the Nashop app before the general public and explore its groundbreaking features.</p>
+                </div>
+                <div class="feature-card animated-item" style="transition-delay: 0.2s;">
+                    <div class="feature-icon">⍟</div>
+                    <h3>Special Token Rewards</h3>
+                    <p>Waitlist members will receive a special $DAN token bonus upon launch as a thank you for your early support.</p>
+                </div>
+                <div class="feature-card animated-item" style="transition-delay: 0.4s;">
+                    <div class="feature-icon">⌬</div>
+                    <h3>Shape the Future</h3>
+                    <p>Your feedback will be invaluable. Help us refine the app and shape the future of decentralized commerce.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Nashop. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Feature card scroll animation ---
+            const animatedItems = document.querySelectorAll('.animated-item');
+            if (animatedItems.length > 0) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                        }
+                    });
+                }, {
+                    threshold: 0.1 // Trigger when 10% of the item is visible
+                });
+
+                animatedItems.forEach(item => {
+                    observer.observe(item);
+                });
+            }
+
+            // --- Form submission handling ---
+            const form = document.getElementById('waitlist-form');
+            const successMessage = document.getElementById('success-message');
+            
+            if(form && successMessage) {
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault(); // Stop the default page reload
+                    
+                    const emailInput = form.querySelector('.waitlist-input');
+
+                    // Simple validation check
+                    if (emailInput.value && emailInput.checkValidity()) {
+                        // Add class to the form to trigger CSS transitions
+                        form.classList.add('form-submitted');
+                        
+                        // After the form elements have faded out, show the success message
+                        setTimeout(() => {
+                           successMessage.classList.add('visible');
+                        }, 500); // This delay should match the transition duration of the form elements
+                    } else {
+                        // Optional: Handle invalid email case, e.g., by shaking the input
+                        emailInput.style.animation = 'shake 0.5s';
+                        setTimeout(() => {
+                            emailInput.style.animation = '';
+                        }, 500);
+                    }
+                });
+            }
+        });
+
+        // Add shake animation keyframes to the head for invalid email
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
